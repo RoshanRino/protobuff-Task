@@ -1,0 +1,17 @@
+syntax = "proto3";
+package fileData;
+
+message Line{
+	optional string line =1;
+}
+
+message File {
+	optional int32 versionNumber = 1;
+	optional string time = 4;
+	repeated Line data = 2;
+	optional int32 operationCount = 3;
+}
+
+message myFiles{
+	repeated File files =1;
+}

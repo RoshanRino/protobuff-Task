@@ -1,0 +1,15 @@
+syntax = "proto3";
+package projectdata;
+
+
+message myProject {
+	optional int32 projectId = 1;
+	optional string dateCreated =3;
+	optional string projectName = 4;
+	optional string timeCreated =5;
+	optional int32 currentVersion =2;
+}
+message myProjects{
+	repeated myProject project =1;
+}
+	
