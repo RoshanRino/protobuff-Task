@@ -48,7 +48,7 @@ public:
 	static void display(int number)
 	{
 		system("cls");
-		cout << "version Number : " << versions.files(number).versionnumber() <<"      "<<"CreatedTime:"<<versions.files(number).time()<< endl << endl;
+		cout << "version Number : " << versions.files(number).versionnumber() <<"     "<<"CreatedTime:"<<versions.files(number).time()<< endl << endl;
 		if (versions.files(number).data_size() < 1)
 		{
 			cout<<"File is empty"<<endl<<endl;
@@ -59,10 +59,15 @@ public:
 		for (int i = 0; i <f.data_size(); i++)
 		{
 			cout.width(3); cout.fill(' ');
-			cout << (i+1) << "    ";
+			cout << (i+1) << " ";
 			cout << f.data(i).line()<<endl;
 		}
 		cout << endl << endl << endl << endl;
+	}
+	static void deleteAll(int number)
+	{
+		versions.mutable_files(number)->clear_data();
+		versions.mutable_files(number)->set_operationcount(versions.files(number).operationcount() + 1);
 	}
 	static void update(int number)
 	{
@@ -88,7 +93,7 @@ public:
 		cin >> deleteLine;
 		if (deleteLine < lineCount)
 		{
-			versions.mutable_files(number)->mutable_data(deleteLine-1)->clear_line();
+			versions.mutable_files(number)->mutable_data(deleteLine - 1)->clear_line();
 			versions.mutable_files(number)->set_operationcount(versions.files(number).operationcount() + 1);
 		}
 	}
@@ -126,8 +131,9 @@ public:
 			cout << "Press 2 to add a line" << endl;
 			cout << "Press 3 to update a line" << endl;
 			cout << "Press 4 to delete a line" << endl;
-			cout << "Press 5 to revert to older version" << endl;
-			cout << "Press 6 to exit" << endl;
+			cout << "Press 5 to delete whole text" << endl;
+			cout << "Press 6 to revert to older version" << endl;
+			cout << "Press 7 to exit" << endl;
 			cin >> input;
 			switch (input)
 			{
@@ -144,6 +150,9 @@ public:
 				deleteLine(currentVersion);
 				break;
 			case 5:
+				deleteAll(currentVersion);
+				break;
+			case 6:
 				system("cls");
 				cout << "Enter the Version you Want to Revert to : ";
 				cin >> revert;
@@ -155,7 +164,7 @@ public:
 					versions.mutable_files(currentVersion)->set_operationcount(0);
 				}
 				break;
-			case 6:
+			case 7:
 				return currentVersion;
 			default:
 				break;
