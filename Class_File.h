@@ -86,15 +86,16 @@ public:
 		}
 	}
 	static void deleteLine(int number)
-	{
+	{ 
 		system("cls");
 		int lineCount = versions.files(number).data_size(), deleteLine;
 		cout << "Enter the line you want to delete : ";
 		cin >> deleteLine;
-		if (deleteLine < lineCount)
+		
+		for (auto iter = versions.mutable_files(number)->mutable_data()->begin(); iter != versions.mutable_files(number)->mutable_data()->end(); iter++)
 		{
-			versions.mutable_files(number)->mutable_data(deleteLine - 1)->clear_line();
-			versions.mutable_files(number)->set_operationcount(versions.files(number).operationcount() + 1);
+			if (versions.files(number).data(deleteLine - 1).line() == iter->line())
+				versions.mutable_files(number)->mutable_data()->erase(iter);
 		}
 	}
 	static void updateVersion(int i)
