@@ -66,15 +66,18 @@ public:
 			cout << "You do not have any Files Create a new One" << endl << endl;
 			return 0;
 		}
-		cout << "S.No     Project Name                    TimeCreated"<< endl;
+		cout << "P.Id     Project Name                    TimeCreated"<< endl;
 		for ( i = 0; i < projects.project_size(); i++)
 		{
-			cout.width(4); cout.fill(' ');
-			cout <<left<< projects.project(i).projectid();
-			cout << "     ";
-			cout.width(20); cout.fill(' ');
-			cout << projects.project(i).projectname() << "     ";
-			cout<<projects.project(i).datecreated()<< endl;
+			if (!projects.project(i).projectid() == 0)
+			{
+				cout.width(4); cout.fill(' ');
+				cout << left << projects.project(i).projectid();
+				cout << "     ";
+				cout.width(20); cout.fill(' ');
+				cout << projects.project(i).projectname() << "     ";
+				cout << projects.project(i).datecreated() << endl;
+			}
 		}
 		while (1)
 		{
@@ -90,6 +93,32 @@ public:
 				cout << "The id you have entered does not Exist" << endl << endl;
 		}
 	}
+	static int deleteProject(int projectId)
+	{
+		system("cls");
+		int input, i;
+		if (projects.project_size() < 1)
+		{
+			cout << "You do not have any Files Create a new One" << endl << endl;
+			return 0;
+		}
+		cout << "S.No     Project Name                    TimeCreated" << endl;
+		for (i = 0; i < projects.project_size(); i++)
+		{
+			cout.width(4); cout.fill(' ');
+			cout << left << projects.project(i).projectid();
+			cout << "     ";
+			cout.width(20); cout.fill(' ');
+			cout << projects.project(i).projectname() << "     ";
+			cout << projects.project(i).datecreated() << endl;
+		}
+		cout << endl << endl<<"Enter the Id of the File you want to delete : ";
+		cin >> input;
+		if (input > 0 && input <= projects.project_size())
+		{
+			projects.mutable_project(input)->Clear();
+		}
+	}
 	static void userOptions(int id)
 	{
 		loadData(id);
@@ -99,7 +128,8 @@ public:
 			loadData(id);
 			cout << "Press 1 to create a new File" << endl;
 			cout << "Press 2 to open an existing File" << endl;
-			cout << "Press 3 to Logout" << endl;
+			cout << "Press 3 to delete a File" << endl;
+			cout << "Press 4 to Logout" << endl;
 			int input,fileId;
 			cin >> input;
 			switch (input)
@@ -111,6 +141,9 @@ public:
 				fileId = openProject(id);
 				break;
 			case 3:
+				deleteProject(id);
+				break;
+			case 4:
 				return;
 			default:
 				break;
