@@ -28,7 +28,7 @@ public:
 		cin >> name;
 		cout << "Enter a valid Email address : ";
 		cin >> email;
-		getline(cin, password);
+		cin.ignore();
 		while (1)
 		{
 			cout << "Type 'Exit' to close signup" << endl << endl;

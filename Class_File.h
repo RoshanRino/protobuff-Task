@@ -36,7 +36,7 @@ public:
 	{
 		system("cls");
 		string a;
-		getline(cin, a);
+		cin.ignore();
 		cout << "Enter the line to be added"<<endl;
 		getline(cin, a);
 		fileData::Line* L;
@@ -79,7 +79,7 @@ public:
 		if (updateLine <= lineCount && updateLine>0)
 		{
 			cout<< "Enter the Text to Replace the line : ";
-			getline(cin, a);
+			cin.ignore();
 			getline(cin, a);
 			versions.mutable_files(number)->mutable_data(updateLine-1)->set_line(a);
 			versions.mutable_files(number)->set_operationcount(versions.files(number).operationcount() + 1);
